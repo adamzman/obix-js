@@ -1,5 +1,5 @@
 {
-  "name": "obix-parsers-js",
+  "name": "obix-js",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adamz0210/obix-parsers-js.git"
+    "url": "git+https://github.com/adamz0210/obix-js.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/adamz0210/obix-parsers-js/issues"
+    "url": "https://github.com/adamz0210/obix-js/issues"
   },
-  "homepage": "https://github.com/adamz0210/obix-parsers-js#readme"
+  "homepage": "https://github.com/adamz0210/obix-js#readme"
 }
