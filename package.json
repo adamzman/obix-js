@@ -1,0 +1,19 @@
+{
+  "name": "obix-parsers-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamz0210/obix-parsers-js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adamz0210/obix-parsers-js/issues"
+  },
+  "homepage": "https://github.com/adamz0210/obix-parsers-js#readme"
+}
