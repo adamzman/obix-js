@@ -5,8 +5,8 @@ name: Node.js Package
 
 on:
   push:
-    branches: 
-    - main
+    branches:
+    - master
 
 jobs:
   publish-npm:
