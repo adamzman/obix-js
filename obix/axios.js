@@ -32,8 +32,8 @@ const createInstance = ({ protocol, host, port, username, password }) => {
   });
   axiosInstance.interceptors.response.use(
     (response) => {
-      const [cookie] = response.headers['set-cookie'] || []; // getting cookie from request
-      if (cookie) axiosInstance.defaults.headers.Cookie = cookie; // attaching cookie to axiosInstance for future requests
+      const [cookie] = response.headers['set-cookie'] || [];
+      if (cookie) axiosInstance.defaults.headers.Cookie = cookie;
       parseError(response.data?.err);
       return response;
     },
