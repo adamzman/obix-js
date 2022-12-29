@@ -13,10 +13,10 @@ class ProtocolError extends Error {
   }
 }
 
-const createInstance = ({ mode, host, port, username, password }) => {
-  if (mode != 'https' && mode != 'http') throw new ProtocolError();
+const createInstance = ({ protocol, host, port, username, password }) => {
+  if (protocol != 'https' && protocol != 'http') throw new ProtocolError();
   const axiosInstance = axios.create({
-    baseURL: `${mode}://${host}:${port}/obix/`,
+    baseURL: `${protocol}://${host}:${port}/obix/`,
     timeout: 2000,
     auth: { username, password },
     httpsAgent: new https.Agent({ rejectUnauthorized: false }),

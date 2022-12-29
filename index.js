@@ -5,8 +5,8 @@ const { StandardRequestInstance } = require('./obix/requests/standard');
 const { WatcherRequestInstance } = require('./obix/requests/watcher');
 
 class ObixInstance {
-  constructor({ mode = 'https', host = 'localhost', port = '443', username, password }) {
-    const axiosInstance = createInstance({ mode, host, port, username, password });
+  constructor({ protocol = 'https', host = 'localhost', port = '443', username, password }) {
+    const axiosInstance = createInstance({ protocol, host, port, username, password });
     this.historyRequestInstance = new HistoryRequestInstance({ axiosInstance });
     this.batchRequestInstance = new BatchRequestInstance({ axiosInstance });
     this.standardRequestInstance = new StandardRequestInstance({ axiosInstance });
