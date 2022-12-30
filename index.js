@@ -30,29 +30,12 @@ class ObixInstance {
   }
   // #endregion standard requests
 
-  //#region watcher requests
-  async obixWatcherCreate() {
+  async watcherCreate() {
     return await this.watcherRequestInstance.watcherCreate();
   }
-  async obixWatcherAdd({ watcher, paths }) {
-    return await this.watcherRequestInstance.watcherAdd({ watcher, paths });
+  async watcherUpdateDefaultLease({ leaseTime }) {
+    return await this.watcherRequestInstance.watcherUpdateDefaultLease({ leaseTime });
   }
-  async obixWatcherRemove({ watcher, paths }) {
-    return await this.watcherRequestInstance.watcherRemove({ watcher, paths });
-  }
-  async obixWatcherDelete({ watcher }) {
-    return await this.watcherRequestInstance.watcherDelete({ watcher });
-  }
-  async obixWatcherPollChanges({ watcher }) {
-    return await this.watcherRequestInstance.watcherPollChanges({ watcher });
-  }
-  async obixWatcherPollRefresh({ watcher }) {
-    return await this.watcherRequestInstance.watcherPollRefresh({ watcher });
-  }
-  async obixWatcherUpdateLease({ watcher, leaseTime }) {
-    return await this.watcherRequestInstance.watcherUpdateLease({ watcher, leaseTime });
-  }
-  //#endregion watcher requests
 }
 
 module.exports = { ObixInstance };
