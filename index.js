@@ -13,22 +13,20 @@ class ObixInstance {
     this.watcherRequestInstance = new WatcherRequestInstance({ axiosInstance });
   }
 
-  async obixHistory({ path, query }) {
+  async history({ path, query }) {
     return await this.historyRequestInstance.historyRequest({ path, query });
   }
 
-  async obixBatch({ batch }) {
+  async batch({ batch }) {
     return await this.batchRequestInstance.batchRequest({ batch });
   }
 
-  // #region standard requests
-  async obixRead({ path }) {
+  async read({ path }) {
     return await this.standardRequestInstance.readRequest({ path });
   }
-  async obixWrite({ path, value }) {
+  async write({ path, value }) {
     return await this.standardRequestInstance.writeRequest({ path, value });
   }
-  // #endregion standard requests
 
   async watcherCreate() {
     return await this.watcherRequestInstance.watcherCreate();
