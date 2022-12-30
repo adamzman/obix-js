@@ -1,16 +1,21 @@
 {
   "name": "obix-js",
-  "version": "0.0.1",
-  "description": "Core obix functions",
+  "version": "1.0.0",
+  "description": "Core Obix Niagara functions",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "Tridium",
+    "Niagara",
+    "Obix"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/adamz0210/obix-js.git"
   },
-  "author": "",
+  "author": "Adam Zimmerman",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/adamz0210/obix-js/issues"

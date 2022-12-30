@@ -39,12 +39,12 @@ class BatchRequestInstance {
 
   #filterInvalidBatchInputs(batch) {
     const inputErrors = [];
+    const errorActions = (objTemp, reason) => {
+      delete objTemp.action;
+      inputErrors.push({ ...objTemp, error: true, reason });
+      return false;
+    };
     const filteredBatch = batch.filter((obj) => {
-      const errorActions = (objTemp, reason) => {
-        delete objTemp.action;
-        inputErrors.push({ ...objTemp, error: true, reason });
-        return false;
-      };
       const { path, action, value } = obj;
       if (!path && !action) {
         return errorActions(
