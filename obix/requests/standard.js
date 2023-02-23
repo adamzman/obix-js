@@ -5,6 +5,7 @@ class StandardRequestInstance {
   constructor({ axiosInstance }) {
     this.axiosInstance = axiosInstance;
   }
+
   async writeRequest({ path, value }) {
     path = stripPaths(path)[0];
     const { data } = await this.axiosInstance.post(`config/${path}/set/`, `<real val="${replaceSpecialChars(value)}"/>`);
