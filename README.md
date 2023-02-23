@@ -104,6 +104,34 @@ const writeResult = obix.write({
 - `path`: Niagara point path... ex. `config/TestFolder/TestPoint`, only take `"TestFolder/TestPoint"` (String)
 - `value`: Value that will be written to the point specified in the path (String)
 
+### Get
+
+Returns the raw JSON after being converted from the XML response
+
+```
+const getResult = obix.get({
+  path: String
+})
+```
+
+- `path`: Niagara point path... ex. `config/TestFolder/TestPoint` (String)
+
+### Post
+
+Returns the raw JSON after being converted from the XML response
+
+> The payload must replace any special characters: [Replace Special Characters](https://stackoverflow.com/questions/1091945/what-characters-do-i-need-to-escape-in-xml-documents#:~:text=XML%20escape%20characters,the%20W3C%20Markup%20Validation%20Service)
+
+```
+const postResult = obix.post({
+  path: String,
+  payload: String
+})
+```
+
+- `path`: Niagara point path... ex. `config/TestFolder/TestPoint` (String)
+- `payload`: XML string that will be sent as the body of the post request... ex. `<bool val='false'/>` (String)
+
 ### Watcher Create
 
 ```
