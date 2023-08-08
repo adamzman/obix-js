@@ -1,9 +1,9 @@
-const { createInstance } = require('./obix/axios');
-const { RawRequestInstance } = require('./obix/requests/raw');
-const { HistoryRequestInstance } = require('./obix/requests/history');
-const { BatchRequestInstance } = require('./obix/requests/batch');
-const { StandardRequestInstance } = require('./obix/requests/standard');
-const { WatcherRequestInstance } = require('./obix/requests/watcher');
+const { createInstance } = require('./src/axios');
+const { RawRequestInstance } = require('./src/requests/raw');
+const { HistoryRequestInstance } = require('./src/requests/history');
+const { BatchRequestInstance } = require('./src/requests/batch');
+const { StandardRequestInstance } = require('./src/requests/standard');
+const { WatcherRequestInstance } = require('./src/requests/watcher');
 
 class ObixInstance {
   constructor({ protocol = 'https', host = 'localhost', port = '443', username, password }) {
