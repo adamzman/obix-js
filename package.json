@@ -4,7 +4,9 @@
   "description": "Core Obix Niagara functions",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "major": "npm version major",
+    "minor": "npm version minor",
+    "patch": "npm version patch"
   },
   "keywords": [
     "Tridium",
