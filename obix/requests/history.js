@@ -1,4 +1,13 @@
-const moment = require('moment-timezone');
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone'); // dependent on utc plugin
+const advanced = require('dayjs/plugin/advancedFormat');
+const localizedFormat = require('dayjs/plugin/localizedFormat');
+dayjs.extend(timezone);
+dayjs.extend(utc);
+dayjs.extend(advanced);
+dayjs.extend(localizedFormat);
+
 const { stripPaths, makeArray } = require('../helpers');
 
 //#region Errors
@@ -94,21 +103,18 @@ class HistoryRequestInstance {
   }
 
   #parseHistoryDataHelper({ data, path }) {
-    const values = [];
     const timezone = data.obj.abstime._attributes.tz;
     const limit = data.int._attributes.val;
     let start = data.abstime.find((abstime) => abstime._attributes.name == 'start')._attributes.val;
     let end = data.abstime.find((abstime) => abstime._attributes.name == 'end')._attributes.val;
-    start = moment(data.abstime[0]._attributes.val).tz(timezone).format('LLLL z');
-    end = moment(data.abstime[1]._attributes.val).tz(timezone).format('LLLL z');
+    start = dayjs(data.abstime[0]._attributes.val).tz(timezone).format('LLLL z');
+    end = dayjs(data.abstime[1]._attributes.val).tz(timezone).format('LLLL z');
 
     const dataObjList = makeArray(data.list.obj);
-    dataObjList.forEach((dataObj) =>
-      values.push({
-        timestamp: moment(dataObj.abstime._attributes.val).tz(timezone).format('LLLL z'),
-        value: String(dataObj.real._attributes.val),
-      })
-    );
+    const values = dataObjList.map((dataObj) => ({
+      timestamp: dayjs(dataObj.abstime._attributes.val).tz(timezone).format('LLLL z'),
+      value: String(dataObj.real._attributes.val),
+    }));
 
     return {
       history: path,
