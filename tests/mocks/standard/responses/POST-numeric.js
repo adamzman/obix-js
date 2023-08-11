@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+const convert = require('xml-js');
+
+const data = `<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type='text/xsl' href='/obix/xsl'?>
 <real val="200.15" is="/obix/def/control:NumericWritable /obix/def/control:NumericPoint obix:Point" display="200.2 {ok} @ def" icon="/ord?module://icons/x16/control/numericPoint.png" unit="obix:units/null"
   xmlns="http://obix.org/ns/schema/1.0" xsi:schemaLocation="http://obix.org/ns/schema/1.0 /obix/xsd"
@@ -49,4 +51,7 @@
   <op name="set" href="set/" in="obix:real" displayName="Set"/>
   <str name="wsAnnotation" val="6,12,12" href="wsAnnotation/"/>
   <ref name="NumericInterval" href="NumericInterval/" is="/obix/def/history:NumericIntervalHistoryExt" display="Numeric Interval History Ext" icon="/ord?module://icons/x16/control/controlExtension.png"/>
-</real>
+</real>`;
+
+const postNumeric = convert.xml2js(data, { compact: true, spaces: 4 });
+module.exports = { postNumeric };

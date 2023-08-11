@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+const convert = require('xml-js');
+
+const data = `<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type='text/xsl' href='/obix/xsl'?>
 <bool val="false" is="/obix/def/control:BooleanWritable /obix/def/control:BooleanPoint obix:Point" display="false {ok} @ def" icon="/ord?module://icons/x16/control/booleanPoint.png" range="/obix/config/Test/BooleanWritable/out/~bool"
   xmlns="http://obix.org/ns/schema/1.0" xsi:schemaLocation="http://obix.org/ns/schema/1.0 /obix/xsd"
@@ -53,4 +55,7 @@
   <op name="auto" href="auto/" displayName="Auto"/>
   <op name="set" href="set/" in="obix:bool" displayName="Set"/>
   <str name="wsAnnotation" val="28,12,12" href="wsAnnotation/"/>
-</bool>
+</bool>`;
+
+const postBoolean = convert.xml2js(data, { compact: true, spaces: 4 });
+module.exports = { postBoolean };
