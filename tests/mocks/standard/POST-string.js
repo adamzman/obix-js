@@ -1,6 +1,6 @@
 const convert = require('xml-js');
 
-const data = `<?xml version="1.0" encoding="UTF-8"?>
+const responseData = `<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type='text/xsl' href='/obix/xsl'?>
 <str val="Testing" is="/obix/def/control:StringWritable /obix/def/control:StringPoint obix:Point" display="Testing {ok} @ def" icon="/ord?module://icons/x16/control/stringPoint.png"
   xmlns="http://obix.org/ns/schema/1.0" xsi:schemaLocation="http://obix.org/ns/schema/1.0 /obix/xsd"
@@ -52,5 +52,7 @@ const data = `<?xml version="1.0" encoding="UTF-8"?>
   <str name="wsAnnotation" val="8,34,8" href="wsAnnotation/"/>
 </str>`;
 
-const postString = convert.xml2js(data, { compact: true, spaces: 4 });
-module.exports = { postString };
+const responseConverted = convert.xml2js(responseData, { compact: true, spaces: 4 });
+const payload = `<real val='Testing'/>`;
+
+module.exports = { postStringResponse: responseConverted, postStringPayload: payload };

@@ -1,6 +1,6 @@
 const convert = require('xml-js');
 
-const data = `<?xml version="1.0" encoding="UTF-8"?>
+const responseData = `<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type='text/xsl' href='/obix/xsl'?>
 <enum val="Test2" is="/obix/def/control:EnumWritable /obix/def/control:EnumPoint obix:Point" display="Test2 {ok} @ def" icon="/ord?module://icons/x16/control/enumPoint.png" range="/obix/config/Test/EnumWritable/out/~range"
   xmlns="http://obix.org/ns/schema/1.0" xsi:schemaLocation="http://obix.org/ns/schema/1.0 /obix/xsd"
@@ -52,5 +52,7 @@ const data = `<?xml version="1.0" encoding="UTF-8"?>
   <str name="wsAnnotation" val="6,24,12" href="wsAnnotation/"/>
 </enum>`;
 
-const postEnum = convert.xml2js(data, { compact: true, spaces: 4 });
-module.exports = { postEnum };
+const responseConverted = convert.xml2js(responseData, { compact: true, spaces: 4 });
+const payload = `<real val='1'/>`;
+
+module.exports = { postEnumResponse: responseConverted, postEnumPayload: payload };
