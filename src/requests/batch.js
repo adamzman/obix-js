@@ -25,7 +25,7 @@ class BatchRequestInstance {
     const { data } = await this.axiosInstance.post(
       `batch`,
       `<list>
-        ${filteredBatch.map((obj) => obj.bodyURI)}
+        ${filteredBatch.map((obj) => obj.bodyURI).join('')}
       </list>`
     );
 
