@@ -34,6 +34,14 @@ describe('Errors', () => {
       expect(httpError.inDepthError).toContain('Error 404');
     });
 
+    test("should handle 'wrong version number' error", () => {
+      const error = { message: 'wrong version number' };
+      const httpError = new HTTPError(error);
+      expect(httpError.name).toEqual('HTTPError');
+      expect(httpError.friendlyError).toEqual('Possibly Wrong Port/Protocol');
+      expect(httpError.inDepthError).toContain('Check the port and security protocol');
+    });
+
     test('should handle unknown error', () => {
       const error = { message: 'Some unknown error' };
       const httpError = new HTTPError(error);
