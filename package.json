@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "major": "npm version major",
     "minor": "npm version minor",
     "patch": "npm version patch"

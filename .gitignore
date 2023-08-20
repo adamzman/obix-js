@@ -1,3 +1,6 @@
 /node_modules
 
+# Jest coverage files
+coverage/
+
 .vscode
