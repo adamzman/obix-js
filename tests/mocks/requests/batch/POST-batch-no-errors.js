@@ -56,10 +56,10 @@ const responseData = `<?xml version="1.0" encoding="UTF-8"?>
 </list>`;
 
 const responseConverted = convert.xml2js(responseData, { compact: true, spaces: 4 });
-const payload = `<list is="obix:BatchIn">
-<uri is="obix:Read" val="https://localhost:443/obix/config/Test/BooleanWritable/out" >
+const payload = `<list>
+<uri is="obix:Read" val="https://localhost:443/obix/config/Test/BooleanWritable/out/" >
 </uri>
-<uri is="obix:Invoke" val="https://localhost:443/obix/config/Test/NumericWritable/set">
+<uri is="obix:Invoke" val="https://localhost:443/obix/config/Test/NumericWritable/set/">
     <real name="in" val="50" />
 </uri>
 </list>`;
