@@ -58,6 +58,6 @@ const responseData = `<?xml version="1.0" encoding="UTF-8"?>
 </bool>`;
 
 const responseConverted = convert.xml2js(responseData, { compact: true, spaces: 4 });
-const payload = `<real val='false'/>`;
+const payload = `<real val="false"/>`;
 
 module.exports = { postBooleanResponse: responseConverted, postBooleanPayload: payload };

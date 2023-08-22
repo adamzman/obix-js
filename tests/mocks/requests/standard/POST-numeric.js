@@ -54,6 +54,6 @@ const responseData = `<?xml version="1.0" encoding="UTF-8"?>
 </real>`;
 
 const responseConverted = convert.xml2js(responseData, { compact: true, spaces: 4 });
-const payload = `<real val='200.15'/>`;
+const payload = `<real val="200.15"/>`;
 
 module.exports = { postNumericResponse: responseConverted, postNumericPayload: payload };

@@ -53,6 +53,6 @@ const responseData = `<?xml version="1.0" encoding="UTF-8"?>
 </enum>`;
 
 const responseConverted = convert.xml2js(responseData, { compact: true, spaces: 4 });
-const payload = `<real val='1'/>`;
+const payload = `<real val="1"/>`;
 
 module.exports = { postEnumResponse: responseConverted, postEnumPayload: payload };

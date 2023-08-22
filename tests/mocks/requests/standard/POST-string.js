@@ -53,6 +53,6 @@ const responseData = `<?xml version="1.0" encoding="UTF-8"?>
 </str>`;
 
 const responseConverted = convert.xml2js(responseData, { compact: true, spaces: 4 });
-const payload = `<real val='Testing'/>`;
+const payload = `<real val="Testing"/>`;
 
 module.exports = { postStringResponse: responseConverted, postStringPayload: payload };
