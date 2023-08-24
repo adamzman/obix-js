@@ -36,7 +36,7 @@ describe('WatcherRequestInstance', () => {
     });
     test('should throw error if axios fails', async () => {
       expect.assertions(1);
-      watcherRequestInstance.axiosInstance.put.mockRejectedValue(new Error());
+      watcherRequestInstance.axiosInstance.put.mockRejectedValueOnce(new Error());
       try {
         await watcherRequestInstance.watcherUpdateDefaultLease({ leaseTime: 10 });
       } catch (error) {
