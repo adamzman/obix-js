@@ -9,6 +9,7 @@ class WatcherRequestInstance {
 
   async watcherUpdateDefaultLease({ leaseTime }) {
     await this.axiosInstance.put('/watchService/defaultLeaseTime/', this.#buildLeaseBody(leaseTime));
+    return;
   }
 
   async watcherCreate() {
