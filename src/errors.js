@@ -64,9 +64,45 @@ class UnknownTypeError extends Error {
   }
 }
 
+class BQLHTTPError extends Error {
+  constructor(error) {
+    super();
+    this.name = 'HTTPError';
+
+    if (error?.code?.includes('ECONNABORTED')) {
+      this.friendlyError = 'Connection Error - Timeout';
+      this.inDepthError =
+        'Error ECONNABORTED- Connection to server could not be established:\n' +
+        '\n1. Check the configured IP Address and Port' +
+        '\n2. Ensure http/https is enabled in the WebServices in Niagara';
+    } else if (error?.message?.includes('401')) {
+      this.friendlyError = 'Invalid Username/Password - 401';
+      this.inDepthError =
+        'Error 401 - Invalid Credentials:\n' +
+        '\n1. Ensure the Username / Password is correct' +
+        '\n2. Ensure the user account has HTTPBasicScheme authentication (Check Documentation in Github for more details)';
+    } else if (error?.message?.includes('403')) {
+      this.friendlyError = 'Permission Error - 403';
+      this.inDepthError = 'Error 403 - Permission Error:\n' + '\n1. Ensure the user has the admin role assigned / admin privileges';
+    } else if (error?.message?.includes('404')) {
+      this.friendlyError = 'Invalid Ord/Query - 404';
+      this.inDepthError = 'Error 404 - BQL Query most likely incorrect.';
+    } else if (error?.message?.includes('wrong version number')) {
+      this.friendlyError = 'Possibly Wrong Port/Protocol';
+      this.inDepthError = 'Check the port and security protocol';
+    } else {
+      this.friendlyError = error.message;
+    }
+
+    this.message = this.friendlyError;
+    this.responseData = error.response?.data;
+  }
+}
+
 module.exports = {
   HTTPError,
   PathError,
   InvalidTypeError,
   UnknownTypeError,
+  BQLHTTPError,
 };
