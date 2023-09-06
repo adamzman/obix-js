@@ -4,6 +4,8 @@ Javascript library that contains the core functions for communicating with Tridi
 
 ## Create Instance
 
+### Obix
+
 Import and create new `ObixInstance` passing the `protocol`, `host`, `port`, `username`, and `password`.
 
 ```
@@ -17,7 +19,22 @@ const obix = new ObixInstance({
 })
 ```
 
-## Methods
+### BQL
+
+Import and create new `BQLInstance` passing the `protocol`, `host`, `port`, `username`, and `password`.
+
+```
+const { BQLInstance } = require('obix-js');
+const bql = new BQLInstance({
+  protocol: String ('https' or 'http'),
+  host: String (Niagara IP Address),
+  port: String | Number (Niagara web service port),
+  username: String (HTTPBasic username),
+  password: String (HTTPBasic password)
+})
+```
+
+## Obix Methods
 
 Use newly created `ObixInstance` to call methods.
 
@@ -171,3 +188,21 @@ const result = obix.watcherUpdateDefaultLease({ leaseTime: 'PT4M30S' });
 ```
 
 - `leaseTime`: Default lease time for all newly created watchers (Number<'milliseconds'> | String<'ISO 8601 Format'>)
+
+## BQL Methods
+
+Use newly created `BQLInstance` to call methods.
+
+### Query
+
+Returns an array of objects.
+
+> Example queries can be found [here](https://gist.github.com/mrupperman/8a0761bbb416b8ef1ca4f51c228f63bf)
+
+```
+const postResult = bql.query({
+  query: String
+})
+```
+
+- `query`: String that will be appended to the bql get request... ex. `station:|history:/TestStation|bql:select *` (String)
