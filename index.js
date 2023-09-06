@@ -1,9 +1,14 @@
 const { createInstance } = require('./src/axios');
+
+// Obix Imports
 const { RawRequestInstance } = require('./src/requests/raw');
 const { HistoryRequestInstance } = require('./src/requests/history');
 const { BatchRequestInstance } = require('./src/requests/batch');
 const { StandardRequestInstance } = require('./src/requests/standard');
 const { WatcherRequestInstance } = require('./src/requests/watcher');
+
+// BQL Imports
+const { BQLQueryInstance } = require('./src/requests/bql');
 
 class ObixInstance {
   constructor({ protocol = 'https', host = 'localhost', port = '443', username, password }) {
@@ -48,4 +53,15 @@ class ObixInstance {
   }
 }
 
-module.exports = { ObixInstance };
+class BQLInstance {
+  constructor({ protocol = 'https', host = 'localhost', port = '443', username, password }) {
+    const axiosInstance = createInstance({ protocol, host, port, username, password, isBQL: true });
+    this.bqlQueryInstance = new BQLQueryInstance({ axiosInstance });
+  }
+
+  async query({ query }) {
+    return await this.bqlQueryInstance.bqlQuery({ query });
+  }
+}
+
+module.exports = { ObixInstance, BQLInstance };
