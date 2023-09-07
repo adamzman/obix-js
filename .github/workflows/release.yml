@@ -30,4 +30,4 @@ jobs:
       - name: Publish to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Use your npm token secret
-        run: npm publish
+        run: npm publish --access public
