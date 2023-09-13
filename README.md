@@ -41,7 +41,7 @@ Use newly created `ObixInstance` to call methods.
 ### History
 
 ```
-const historyResult = obix.history({
+const historyResult = await obix.history({
   path: String,
   query: String | Object
 })
@@ -78,7 +78,7 @@ const historyResult = obix.history({
 ### Batch
 
 ```
-const batchResult = obix.batch({
+const batchResult = await obix.batch({
   batch: Object | Object[]
 })
 ```
@@ -102,7 +102,7 @@ const batchResult = obix.batch({
 ### Read
 
 ```
-const readResult = obix.read({
+const readResult = await obix.read({
   path: String
 })
 ```
@@ -112,7 +112,7 @@ const readResult = obix.read({
 ### Write
 
 ```
-const writeResult = obix.write({
+const writeResult = await obix.write({
   path: String,
   value: String | Boolean | Number
 })
@@ -126,7 +126,7 @@ const writeResult = obix.write({
 Returns the raw JSON after being converted from the XML response
 
 ```
-const getResult = obix.get({
+const getResult = await obix.get({
   path: String
 })
 ```
@@ -140,7 +140,7 @@ Returns the raw JSON after being converted from the XML response
 > The payload must replace any special characters: [Replace Special Characters](https://stackoverflow.com/questions/1091945/what-characters-do-i-need-to-escape-in-xml-documents#:~:text=XML%20escape%20characters,the%20W3C%20Markup%20Validation%20Service)
 
 ```
-const postResult = obix.post({
+const postResult = await obix.post({
   path: String,
   payload: String
 })
@@ -152,11 +152,11 @@ const postResult = obix.post({
 ### Watcher Create
 
 ```
-const watcher = obix.watcherCreate();
-const addResult = watcher.add({ paths: ["Test/Path1", "Test/Path2"] });
-const removeResult = watcher.remove({ paths: ["Test/Path2"] });
-const pollChangesResult = watcher.pollChanges();
-const leaseResult = watcher.lease({ leaseTime: 5000 });
+const watcher = await obix.watcherCreate();
+const addResult = await watcher.add({ paths: ["Test/Path1", "Test/Path2"] });
+const removeResult = await watcher.remove({ paths: ["Test/Path2"] });
+const pollChangesResult = await watcher.pollChanges();
+const leaseResult = await watcher.lease({ leaseTime: 5000 });
 ```
 
 - Returns watcher object
@@ -184,7 +184,7 @@ const leaseResult = watcher.lease({ leaseTime: 5000 });
 ### Watcher Default Lease
 
 ```
-const result = obix.watcherUpdateDefaultLease({ leaseTime: 'PT4M30S' });
+const result = await obix.watcherUpdateDefaultLease({ leaseTime: 'PT4M30S' });
 ```
 
 - `leaseTime`: Default lease time for all newly created watchers (Number<'milliseconds'> | String<'ISO 8601 Format'>)
@@ -200,7 +200,7 @@ Returns an array of objects.
 > Example queries can be found [here](https://gist.github.com/mrupperman/8a0761bbb416b8ef1ca4f51c228f63bf)
 
 ```
-const postResult = bql.query({
+const postResult = await bql.query({
   query: String
 })
 ```

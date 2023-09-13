@@ -1,4 +1,4 @@
-const { parse } = require('node-html-parser');
+const cheerio = require('cheerio');
 
 //#region Errors
 class MissingBQLQuery extends Error {
@@ -21,47 +21,56 @@ class BQLQueryInstance {
 
     const { data } = await this.axiosInstance.get(`ord?${query}|view:file:ITableToHtml`);
 
-    const root = parse(data);
-    const table = root.querySelector('table');
+    const $ = cheerio.load(data);
+    const $table = $('table');
 
-    const rows = table.querySelectorAll('tr');
-    const headers = rows[0].querySelectorAll('th');
+    if ($table.length === 0) {
+      return []; // Handle the case where the table is not found
+    }
 
+    const $rows = $table.find('tr');
+    if ($rows.length < 2) {
+      return []; // Handle the case where there are no data rows
+    }
+
+    const $headers = $rows.eq(0).find('th');
     const parsedDataArray = [];
 
-    for (let i = 1; i < rows.length; i++) {
-      const row = rows[i];
-      const cells = row.querySelectorAll('td');
-      const rowData = {};
+    function convertType(value) {
+      // Check for specific values and convert them
+      if (value === 'null') {
+        return null;
+      } else if (value === '') {
+        return value;
+      } else if (value === 'true' || value === 'false') {
+        return value === 'true';
+      } else if (!isNaN(value)) {
+        return parseFloat(value); // Convert to number
+      } else {
+        return value; // Keep as is
+      }
+    }
 
-      for (let j = 0; j < headers.length - 1; j++) {
-        // Exclude the last "class" cell
-        const headerText = headers[j].text.trim().replace(' ', '_');
-        const cellText = cells[j].text.trim();
-        rowData[headerText] = this.#convertType(cellText);
+    $rows.slice(1).each(function () {
+      const $cells = $(this).find('td');
+
+      if ($cells.length !== $headers.length) {
+        return; // Skip rows with mismatched cell count
       }
 
+      const rowData = {};
+
+      $headers.slice(0, -1).each(function (j) {
+        const headerText = $(this).text().trim().replace(' ', '_');
+        const cellText = convertType($cells.eq(j).text().trim());
+        rowData[headerText] = cellText;
+      });
+
       parsedDataArray.push(rowData);
-    }
+    });
+
     return parsedDataArray;
   }
-
-  //#region Helpers
-  #convertType(value) {
-    // Check for specific values and convert them
-    if (value === 'null') {
-      return null;
-    } else if (value === '') {
-      return value;
-    } else if (value === 'true' || value === 'false') {
-      return value === 'true';
-    } else if (!isNaN(value)) {
-      return parseFloat(value); // Convert to number
-    } else {
-      return value; // Keep as is
-    }
-  }
-  //#endregion Helpers
 }
 
 module.exports = { BQLQueryInstance };
