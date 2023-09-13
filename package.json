@@ -30,7 +30,6 @@
     "axios": "^1.2.1",
     "cheerio": "^1.0.0-rc.12",
     "dayjs": "^1.11.9",
-    "node-html-parser": "^6.1.6",
     "xml-js": "^1.6.11"
   },
   "devDependencies": {
