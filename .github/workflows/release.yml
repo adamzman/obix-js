@@ -4,10 +4,31 @@ on:
   push:
     branches:
       - master
-    tags:
-      - 'v*' # Trigger on tags that start with 'v'
-
+      
 jobs:
+  tag:
+    name: Create tag
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v3
+
+      - name: Get package version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
+
+      - name: Setup git user
+        run: |
+          git config user.email "$(git show -s --format=%ae)"
+          git config user.name "$(git show -s --format=%an)"
+
+      - name: Create tag
+        run: git tag -a v${{ steps.package-version.outputs.current-version}} -m "Tag v${{ steps.package-version.outputs.current-version}}"
+
+      - name: Push to remote repository
+        run: git push origin v${{ steps.package-version.outputs.current-version}}
+        
   release:
     name: Publish to npm
     runs-on: ubuntu-latest
@@ -32,3 +53,22 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Use your npm token secret
         run: npm publish --access public
+
+  bump:
+    name: Bump patch version
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v3
+
+      - name: Setup git user
+        run: |
+          git config user.email "$(git show -s --format=%ae)"
+          git config user.name "$(git show -s --format=%an)"
+
+      - name: Bump version without creating tag
+        run: npm --no-git-tag-version version patch -m "Bump to version %s"
+
+      - name: Push to remote repository
+        run: git push
