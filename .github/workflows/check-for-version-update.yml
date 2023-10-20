@@ -11,26 +11,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
 
-      - name: Debug
-        run: git branch
+      - name: Checkout ${{ github.base_ref }}
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.base_ref }}
+
+      - name: Set ${{ github.base_ref }} branch version variable
+        id: main_branch_version
+        run: echo "MAIN_BRANCH_VERSION={$(node -p "require('./package.json').version")}" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout current branch
+        uses: actions/checkout@v3
 
       - name: Set current branch version variable
         id: current_branch_version
         run: echo "CURRENT_BRANCH_VERSION={$(node -p "require('./package.json').version")}" >> "$GITHUB_OUTPUT"
-
-      - name: Set main branch version variable
-        id: main_branch_version
-        run: |
-          git checkout ${{ github.base_ref }}
-          echo "MAIN_BRANCH_VERSION={$(node -p "require('./package.json').version")}" >> "$GITHUB_OUTPUT"
 
       - name: Compare package versions
         env:
