@@ -50,7 +50,7 @@ jobs:
           git config user.name "$(git show -s --format=%an)"
 
       - name: Create tag
-        run: git tag -a v${{ steps.package-version.outputs.current-version}} -m "Tag v${{ steps.package-version.outputs.current-version}}"
+        run: git tag -a v${{ steps.package-version.outputs.current-version}} -m "${{ steps.package-version.outputs.current-version}}"
 
       - name: Push to remote repository
         run: git push origin v${{ steps.package-version.outputs.current-version}}
