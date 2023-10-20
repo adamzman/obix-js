@@ -11,14 +11,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
           registry-url: 'https://registry.npmjs.org'
+
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Install dependencies
         run: npm ci
@@ -32,12 +32,18 @@ jobs:
     needs: test
 
     steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          registry-url: 'https://registry.npmjs.org'
+
       - name: Check out branch
         uses: actions/checkout@v3
 
-      - name: Get package version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.3.1
+      - name: Set current branch version variable
+        id: current_branch_version
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
 
       - name: Setup git user
         run: |
@@ -45,10 +51,10 @@ jobs:
           git config user.name "$(git show -s --format=%an)"
 
       - name: Create tag
-        run: git tag -a v${{ steps.package-version.outputs.current-version }} -m "${{ steps.package-version.outputs.current-version }}"
+        run: git tag -a v${{ steps.current_branch_version.outputs.version }} -m "${{ steps.current_branch_version.outputs.version }}"
 
       - name: Push to remote repository
-        run: git push origin v${{ steps.package-version.outputs.current-version }}
+        run: git push origin v${{ steps.current_branch_version.outputs.version }}
 
   release:
     name: Publish to npm
@@ -56,14 +62,14 @@ jobs:
     needs: tag
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
           registry-url: 'https://registry.npmjs.org'
+
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Publish to npm
         env:
