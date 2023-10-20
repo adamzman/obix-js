@@ -19,6 +19,9 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Debug
+        run: git branch
+
       - name: Set current branch version variable
         id: current_branch_version
         run: echo "CURRENT_BRANCH_VERSION={$(node -p "require('./package.json').version")}" >> "$GITHUB_OUTPUT"
