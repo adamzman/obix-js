@@ -23,14 +23,14 @@ jobs:
 
       - name: Set ${{ github.base_ref }} branch version variable
         id: main_branch_version
-        run: echo "MAIN_BRANCH_VERSION={$(node -p "require('./package.json').version")}" >> "$GITHUB_OUTPUT"
+        run: echo "MAIN_BRANCH_VERSION=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
 
       - name: Checkout current branch
         uses: actions/checkout@v3
 
       - name: Set current branch version variable
         id: current_branch_version
-        run: echo "CURRENT_BRANCH_VERSION={$(node -p "require('./package.json').version")}" >> "$GITHUB_OUTPUT"
+        run: echo "CURRENT_BRANCH_VERSION=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
 
       - name: Compare package versions
         env:
