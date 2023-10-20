@@ -1,6 +1,9 @@
 name: Check for version update
 
-on: pull_request
+on:
+  pull_request:
+    branches:
+      - master
 
 jobs:
   check_version_update:
@@ -23,7 +26,7 @@ jobs:
       - name: Set main branch version variable
         id: main_branch_version
         run: |
-          git checkout ${{ vars.MAIN_BRANCH }}
+          git checkout ${{ github.base_ref }}
           echo "MAIN_BRANCH_VERSION={$(node -p "require('./package.json').version")}" >> "$GITHUB_OUTPUT"
 
       - name: Compare package versions
@@ -36,7 +39,7 @@ jobs:
 
           # Compare the versions
           if [ "$MAIN_BRANCH_VERSION" == "$CURRENT_BRANCH_VERSION" ]; then
-            echo "The package versions in ${{ vars.MAIN_BRANCH }} and the current branch are the same. Update version"
+            echo "The package version in ${{ github.base_ref }} and the current branch are the same. Update version."
             exit 1
           else
             echo "The package versions are different. Success..."
