@@ -11,8 +11,8 @@ const { WatcherRequestInstance } = require('./src/requests/watcher');
 const { BQLQueryInstance } = require('./src/requests/bql');
 
 class ObixInstance {
-  constructor({ protocol = 'https', host = 'localhost', port = '443', username, password }) {
-    const axiosInstance = createInstance({ protocol, host, port, username, password });
+  constructor({ protocol = 'https', host = 'localhost', port = '443', username, password, timeout }) {
+    const axiosInstance = createInstance({ protocol, host, port, username, password, timeout });
     this.rawRequestInstance = new RawRequestInstance({ axiosInstance });
     this.historyRequestInstance = new HistoryRequestInstance({ axiosInstance });
     this.batchRequestInstance = new BatchRequestInstance({ axiosInstance });
@@ -54,8 +54,8 @@ class ObixInstance {
 }
 
 class BQLInstance {
-  constructor({ protocol = 'https', host = 'localhost', port = '443', username, password }) {
-    const axiosInstance = createInstance({ protocol, host, port, username, password, isBQL: true });
+  constructor({ protocol = 'https', host = 'localhost', port = '443', username, password, timeout }) {
+    const axiosInstance = createInstance({ protocol, host, port, username, password, isBQL: true, timeout });
     this.bqlQueryInstance = new BQLQueryInstance({ axiosInstance });
   }
 

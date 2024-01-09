@@ -21,6 +21,23 @@ describe('Axios', () => {
       expect(axiosInstance.defaults.transformResponse).toContainEqual(expect.any(Function));
     });
 
+    test('creates an axios instance with timeout override', () => {
+      const protocol = 'https';
+      const host = 'example.com';
+      const port = 443;
+      const username = 'user';
+      const password = 'pass';
+      const timeout = 5000;
+
+      const axiosInstance = createInstance({ protocol, host, port, username, password, timeout });
+
+      expect(axiosInstance.defaults.baseURL).toBe(`https://example.com:443/obix/`);
+      expect(axiosInstance.defaults.timeout).toBe(timeout);
+      expect(axiosInstance.defaults.auth).toEqual({ username, password });
+      expect(axiosInstance.defaults.httpsAgent).toBeInstanceOf(https.Agent);
+      expect(axiosInstance.defaults.transformResponse).toContainEqual(expect.any(Function));
+    });
+
     test('throws ProtocolError for invalid protocol', () => {
       expect.assertions(4);
       const invalidProtocol = 'ftp';
