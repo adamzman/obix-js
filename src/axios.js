@@ -13,13 +13,13 @@ class ProtocolError extends Error {
   }
 }
 
-const createInstance = ({ protocol, host, port, username, password, isBQL = false }) => {
+const createInstance = ({ protocol, host, port, username, password, isBQL = false, timeout }) => {
   if (protocol != 'https' && protocol != 'http') throw new ProtocolError();
 
   if (isBQL) {
     const axiosInstance = axios.create({
       baseURL: `${protocol}://${host}:${port}`,
-      timeout: 10000,
+      timeout: timeout || 10000,
       auth: { username, password },
       httpsAgent: new https.Agent({ rejectUnauthorized: false }),
     });
@@ -37,7 +37,7 @@ const createInstance = ({ protocol, host, port, username, password, isBQL = fals
   } else {
     const axiosInstance = axios.create({
       baseURL: `${protocol}://${host}:${port}/obix/`,
-      timeout: 2000,
+      timeout: timeout || 2000,
       auth: { username, password },
       httpsAgent: new https.Agent({ rejectUnauthorized: false }),
       transformResponse: [

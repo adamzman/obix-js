@@ -15,7 +15,8 @@ const obix = new ObixInstance({
   host: String (Niagara IP Address),
   port: String | Number (Niagara web service port),
   username: String (Obix username),
-  password: String (Obix password)
+  password: String (Obix password),
+  timeout: Optional Number (ms until request timeout)
 })
 ```
 
@@ -30,7 +31,8 @@ const bql = new BQLInstance({
   host: String (Niagara IP Address),
   port: String | Number (Niagara web service port),
   username: String (HTTPBasic username),
-  password: String (HTTPBasic password)
+  password: String (HTTPBasic password),
+  timeout: Optional Number (ms until request timeout)
 })
 ```
 
